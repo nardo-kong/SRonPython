@@ -1,0 +1,8 @@
+Flask==2.2.2
+scikit-build
+opencv-python==4.9.0.80
+numpy==1.22.0
+tqdm==4.66.2
+torch==1.13.1
+torchvision==0.14.1
+Pillow==9.0.1
