@@ -122,17 +122,16 @@ def generate_super_resolution(image_path):
     low_res = low_res.squeeze(0).cpu().detach().numpy().transpose(1, 2, 0)
             
         # 反归一化：假设原始数据范围为 [-1, 1]
-    '''
+    
     gen_hr = (gen_hr * 0.5 + 0.5) * 255
     gen_hr = gen_hr.clip(0, 255).astype('uint8')
 
     low_res = (low_res * 0.5 + 0.5) * 255
     low_res = low_res.clip(0, 255).astype('uint8')
-    '''
 
     gen_hr = color_transfer(gen_hr, low_res)
     
     gen_hr = Image.fromarray(gen_hr)
     hr_image_path = os.path.splitext(image_path)[0] + '_sr.png'
-    save_image(gen_hr, hr_image_path)
+    gen_hr.save(hr_image_path)
     return hr_image_path
