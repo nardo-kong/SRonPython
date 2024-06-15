@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Resolution App</title>
-    <h5>It may take 10-30 seconds to generate the image.</h5>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <style>
         img {
@@ -17,6 +16,7 @@
 </head>
 <body>
     <h1>Upload an Image for Super Resolution</h1>
+    <h5>It may take 10-30 seconds to generate the image.</h5>
     <form method="post" enctype="multipart/form-data">
         <input type="file" name="file" required>
         <input type="submit" value="Upload">
