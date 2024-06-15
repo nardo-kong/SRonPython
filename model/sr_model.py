@@ -30,17 +30,15 @@ class ResidualBlock(nn.Module):
         return identity + out
     
 class Generator(nn.Module):
-    def __init__(self, in_channels=3, num_residual_blocks=2):  # 进一步减少残差块的数量
+    def __init__(self, in_channels=3, num_residual_blocks=4):
         super(Generator, self).__init__()
-        self.conv1 = nn.Conv2d(in_channels, 8, kernel_size=9, stride=1, padding=4)  # 进一步减少通道数
+        self.conv1 = nn.Conv2d(in_channels, 32, kernel_size=9, stride=1, padding=4)
         self.prelu = nn.PReLU()
-        self.residual_blocks = self.make_layers(ResidualBlock, 8, num_residual_blocks)  # 进一步减少通道数
-        self.conv2 = nn.Conv2d(8, 8, kernel_size=3, stride=1, padding=1)  # 进一步减少通道数
-        self.bn2 = nn.BatchNorm2d(8)  # 进一步减少通道数
-        self.upsample = self.make_layers(self.upsample_block, 8, 2)  # 进一步减少通道数
-        self.conv3 = nn.Conv2d(8, in_channels, kernel_size=9, stride=1, padding=4)  # 进一步减少通道数
-
-    # 其他代码保持不变
+        self.residual_blocks = self.make_layers(ResidualBlock, 32, num_residual_blocks)
+        self.conv2 = nn.Conv2d(32, 32, kernel_size=3, stride=1, padding=1)
+        self.bn2 = nn.BatchNorm2d(32)
+        self.upsample = self.make_layers(self.upsample_block, 32, 2)
+        self.conv3 = nn.Conv2d(32, in_channels, kernel_size=9, stride=1, padding=4)
 
     def make_layers(self, block, in_channels, num_blocks):
         layers = []
@@ -62,7 +60,6 @@ class Generator(nn.Module):
         out = out1 + out
         out = self.upsample(out)
         out = self.conv3(out)
-        print(out.shape)
         return out
 
 
@@ -94,7 +91,7 @@ def color_transfer(src, target):
     # return the color transferred image
     return transfer
 
-MODEL_PATH = 'model/generator_epoch_100.pth'
+MODEL_PATH = 'model/generator_epoch_320.pth'
 
 
 def generate_super_resolution(image_path):

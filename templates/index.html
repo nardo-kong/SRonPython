@@ -4,7 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Resolution App</title>
+    <h5>It may take 10-30 seconds to generate the image.</h5>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        img {
+            max-width: 100vw;
+            max-height: 100vh;
+            display: block; /* 防止图片下方出现空白 */
+            margin: auto; /* 图片居中显示 */
+        }
+    </style>
 </head>
 <body>
     <h1>Upload an Image for Super Resolution</h1>
