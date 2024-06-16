@@ -1,4 +1,4 @@
-Flask==2.2.2
+Flask==3.0.3
 scikit-build
 opencv-python==4.9.0.80
 numpy==1.22.0
