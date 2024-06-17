@@ -1,7 +1,6 @@
 Flask==3.0.3
-opencv-python-headless
 scikit-build
-opencv-python==4.9.0.80
+opencv-python-headless
 numpy==1.22.0
 tqdm==4.66.2
 torch==1.13.1
