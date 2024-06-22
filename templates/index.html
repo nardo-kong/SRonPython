@@ -47,7 +47,28 @@
 
     <script>
         document.getElementById('upload-button').onclick = function() {
+            var fileInput = document.querySelector('input[type="file"]');
+            var file = fileInput.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var img = new Image();
+                    img.onload = function() {
+                        if (img.width > 1080 || img.height > 1080) {
+                            alert("Image size must be less than 1080x1080 pixels.");
+                        } else {
+                            uploadImage(file);
+                        }
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
+        function uploadImage(file) {
             var formData = new FormData(document.getElementById('upload-form'));
+            formData.set('file', file); // Ensure the file is attached.
             // Show loading overlay
             document.getElementById('loading-overlay').style.display = 'flex';
             fetch('/', {
@@ -58,32 +79,36 @@
             .then(data => {
                 // Hide loading overlay
                 document.getElementById('loading-overlay').style.display = 'none';
-                if (data.status === 'locked') {
-                    // Display warning message without leaving the page
-                    var alertContainer = document.getElementById('alert-container');
-                    alertContainer.style.display = 'block';
-                    alertContainer.innerText = data.message;
-                    // Allow users to click to hide the alert and try again
-                    alertContainer.onclick = function() {
-                        this.style.display = 'none'; // Hide the alert container
-                    };
-                } else if (data.status === 'success') {
-                    // Display images
-                    document.getElementById('image-container').innerHTML = `
-                        <h2>Original Image</h2>
-                        <img src="${data.lr_image}" alt="Low Resolution Image">
-                        <h2>Super Resolution Image</h2>
-                        <img src="${data.hr_image}" alt="High Resolution Image">
-                        <a href="${data.hr_image}" download>Download High Resolution Image</a>
-                    `;
-                }
+                handleResponse(data);
             })
             .catch(error => {
                 console.error('Error:', error);
                 // Hide loading overlay in case of error
                 document.getElementById('loading-overlay').style.display = 'none';
             });
-        };
+        }
+
+        function handleResponse(data) {
+            if (data.status === 'locked') {
+                // Display warning message without leaving the page
+                var alertContainer = document.getElementById('alert-container');
+                alertContainer.style.display = 'block';
+                alertContainer.innerText = data.message;
+                // Allow users to click to hide the alert and try again
+                alertContainer.onclick = function() {
+                    this.style.display = 'none'; // Hide the alert container
+                };
+            } else if (data.status === 'success') {
+                // Display images
+                document.getElementById('image-container').innerHTML = `
+                    <h2>Original Image</h2>
+                    <img src="${data.lr_image}" alt="Low Resolution Image">
+                    <h2>Super Resolution Image</h2>
+                    <img src="${data.hr_image}" alt="High Resolution Image">
+                    <a href="${data.hr_image}" download>Download High Resolution Image</a>
+                `;
+            }
+        }
     </script>
 </body>
 </html>
