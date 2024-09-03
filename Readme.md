@@ -1,12 +1,23 @@
-FreeSRonPython
+# FreeSRonPython
 
-Installation
-	Create a virtual environment (Finished in this zip)
-		python -m venv venv
-	Activate the virtual environment: 
-		venv\Scripts\activate
-	Install python package (Finished in this zip)
-		pip install -r requirements.txt
-	Start the app
-		python app.py
+## Installation
 
+1. **Create a virtual environment** (Finished in this zip):
+   
+   &nbsp;&nbsp;&nbsp;&nbsp;python -m venv venv
+
+2. **Activate the virtual environment**:
+
+   &nbsp;&nbsp;&nbsp;&nbsp;venv\Scripts\activate
+
+3. **Install Python packages** (Finished in this zip):
+
+   &nbsp;&nbsp;&nbsp;&nbsp;pip install -r requirements.txt
+
+4. **Start the app**:
+
+   &nbsp;&nbsp;&nbsp;&nbsp;python app.py
+
+## Project Showcase
+
+**Full Picture:**
